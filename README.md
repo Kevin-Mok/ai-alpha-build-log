@@ -1,6 +1,18 @@
-# AI Blog V1
+# AI Alpha Build Log
 
-AI Blog is a blog-first Next.js application built to demonstrate technical writing, AI-native workflow design, and real full-stack implementation details instead of a static brochure. The current UI ships with a restrained CLI-inspired dark theme that keeps public and admin routes visually aligned.
+AI Alpha Build Log is a blog-first full-stack product built to make one argument fast. I know how to turn AI Alpha workflows into real leverage across product design, frontend systems, backend implementation, and technical writing. This repo exists to show that edge in working software, not just talk about it.
+
+This is more persuasive than a normal portfolio repo because it behaves like a real product. It includes a polished public surface, a structured MDX publishing workflow, validated forms, protected admin views, persistence, metadata, and tests. The value is that speed, taste, and implementation quality show up in the same place.
+
+For recruiters, it signals range across interface design, system building, explanation, and delivery polish. For freelance clients, it shows the kind of work that is easiest to buy with confidence: technically solid, visually intentional, and built around real business flows. The point is not that I can claim productivity gains from AI Alpha, but that I can make them visible in shipped work.
+
+## Why this stands out
+
+- It shows AI Alpha workflow leverage through real shipping work, not prompt theater
+- It treats the blog as a serious full-stack product: content system, auth, admin tools, forms, persistence, metadata, and testing
+- It makes frontend taste, backend judgment, and implementation discipline visible in one repo
+- It gives recruiters and freelance clients concrete proof of what I can build, not just claims about productivity
+- It packages speed and taste together, which is the combination that actually wins client work
 
 ## Stack
 
