@@ -31,6 +31,24 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
 
   return (
     <div className="mx-auto max-w-[1480px] space-y-8 px-4 py-8 sm:px-6 lg:px-10">
+      <section className="grid gap-4 xl:grid-cols-2">
+        {filteredPosts.length > 0 ? (
+          filteredPosts.map((post, index) => (
+            <Reveal key={post.slug} delay={index * 60}>
+              <PostCard post={post} />
+            </Reveal>
+          ))
+        ) : (
+          <div className="lg:col-span-2">
+            <EmptyState
+              eyebrow="No matches"
+              title="No published posts match that tag yet."
+              copy="Choose another lane from the filter set or clear the active tag to return to the full archive."
+            />
+          </div>
+        )}
+      </section>
+
       <Reveal>
         <section className="grid gap-6 xl:grid-cols-[0.82fr_1.18fr]">
           <div className="surface-panel p-6">
@@ -77,24 +95,6 @@ export default async function BlogPage({ searchParams }: BlogPageProps) {
           </div>
         </section>
       </Reveal>
-
-      <section className="grid gap-4 xl:grid-cols-2">
-        {filteredPosts.length > 0 ? (
-          filteredPosts.map((post, index) => (
-            <Reveal key={post.slug} delay={index * 60}>
-              <PostCard post={post} />
-            </Reveal>
-          ))
-        ) : (
-          <div className="lg:col-span-2">
-            <EmptyState
-              eyebrow="No matches"
-              title="No published posts match that tag yet."
-              copy="Choose another lane from the filter set or clear the active tag to return to the full archive."
-            />
-          </div>
-        )}
-      </section>
     </div>
   );
 }
