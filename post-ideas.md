@@ -20,6 +20,10 @@ The strongest posts in this backlog all answer the same question: "What gives bu
 4. `MongoDB vs Supabase for AI Apps`
 5. `What the 81k Claude Interviews Actually Tell Us`
 
+## Idea Inbox
+
+- [ ] font creator from handwriting idea
+
 ## Formalized Ideas
 
 ### 1. Skills Are the Missing Layer in AI Coding
