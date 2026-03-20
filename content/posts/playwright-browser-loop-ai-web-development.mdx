@@ -1,0 +1,115 @@
+---
+title: "The Curated Codex Playwright Skill Turns Browser Work Into a Repeatable Loop"
+slug: "playwright-browser-loop-ai-web-development"
+excerpt: "The leverage is not just Playwright. It is the curated Codex skill that packages browser control, snapshots, sessions, and artifact capture into a workflow an agent can repeat."
+publishedAt: "2026-03-20"
+tags:
+  - AI Workflows
+  - Frontend Systems
+  - Product Systems
+featured: false
+draft: false
+seoTitle: "The Codex Playwright Skill for Browser Debugging"
+seoDescription: "Why the curated Codex Playwright skill is better than ad hoc browser prompting for debugging, inspection, and AI-assisted web delivery."
+---
+
+Most Playwright writeups are really writeups about the library. That misses the more useful thing sitting one layer above it: the skill.
+
+The copy I care about lives at `/home/kevin/linux-config/dot_agents/skills/playwright`, and it mirrors the curated `playwright` skill in OpenAI's official skills list. The important part is not that it says "use a browser." The important part is that it packages a browser operating procedure that Codex can actually follow without being re-prompted from scratch every time.
+
+That distinction matters because AI coding tools are already decent at generating interface code. They are much worse at driving the browser, observing what changed, and reporting the result in a way that another loop can build on. A good skill closes that gap by encoding the workflow, not by hoping the model improvises one.
+
+## The valuable thing is the packaging, not just Playwright
+
+Telling an agent "use Playwright" is still vague. It does not answer the practical questions:
+
+- how should the browser be launched?
+- should this be CLI-first or test-file-first?
+- when should the workflow snapshot the DOM?
+- how should it capture artifacts?
+- where should outputs live?
+- what should happen when element references go stale?
+
+The curated Codex skill answers those questions up front. It pushes the workflow toward terminal-driven browser control via `playwright-cli`, defaults to the wrapper script instead of assuming a global install, requires a prerequisite check for `npx`, and explicitly says not to pivot into `@playwright/test` unless the user asked for test files.
+
+That is the right design. Most browser tasks inside agent sessions are not "write me a durable test suite." They are "open the page, inspect the state, click through the flow, capture evidence, and tell me what actually happened."
+
+## What the skill actually encodes
+
+The skill is small, but it is opinionated in the right places.
+
+First, it standardizes access through a wrapper script. That wrapper shells out through `npx --package @playwright/cli playwright-cli`, which means the workflow does not depend on a global install being present. That sounds minor, but it is exactly the kind of setup detail that derails AI tool use when it is left implicit.
+
+Second, it defines a stable interaction loop: open the page, snapshot the DOM, interact using snapshot refs, then snapshot again after meaningful changes. That is a much better browser workflow than letting the model guess selectors or reach for code execution too early.
+
+Third, it builds in operational extensions that matter in real work: headed mode for visual inspection, trace capture around suspicious flows, console and network inspection, named sessions for isolating state, and a references folder with narrow command and workflow docs instead of one giant prompt blob.
+
+That is what a real skill should do. It should not just name a tool. It should compress the operating model.
+
+## Why CLI-first is the right default
+
+This skill treats browser automation as terminal work, not immediately as test authoring. That is a better fit for debugging and learning.
+
+When an engineer or agent is trying to understand a UI, the first need is usually inspection, not permanence. You want to open a real page, get a snapshot, click something, inspect the network, maybe record a trace, maybe switch tabs, maybe reuse a session. For that, a CLI workflow is lighter than creating test files, fixtures, and assertions before you even know what the issue is.
+
+The skill's default loop reflects that reality. It makes the browser available to the terminal session immediately, and it keeps the commands explicit enough that the agent can narrate what it is doing. That is better for debugging, better for review, and better for turning a one-off inspection into a later reusable procedure.
+
+## Snapshots are the real discipline
+
+The smartest part of the skill is not the wrapper script. It is the insistence on snapshots.
+
+Every time a browser workflow uses element refs like `e12`, the hidden risk is staleness. The DOM changes, the reference dies, and the whole flow becomes guesswork again. The skill guards against that by making snapshots part of the normal loop instead of a rescue move.
+
+That matters for AI because stale browser state is where the model starts hallucinating. If the last known snapshot is old, the workflow drifts fast. The skill prevents that by giving the agent a simple rule: resnapshot after navigation, modal changes, tab switches, or any substantial DOM update.
+
+That is a much higher-signal habit than telling the model to "inspect the page again." It turns browser work into a sequence of explicit state captures instead of vibes.
+
+## Why this skill is good for debugging and learning
+
+The skill is useful in the two browser jobs that show up constantly in AI-assisted web work.
+
+The first is debugging. Once the agent can open the page, snapshot it, reproduce the bug, inspect console warnings, inspect network traffic, and record a trace, the conversation changes. You are no longer saying "the button seems broken." You are saying the click happened, the request failed, the UI stayed disabled, and the trace captured the sequence.
+
+The second is learning. If you are dropped into an unfamiliar dashboard or trying to understand how a flow actually behaves, the skill gives the agent a clean inspection loop. Open the route. Snapshot the UI. Interact. Snapshot again. Compare what changed. That is a much faster way to build a mental model than reading source code in isolation.
+
+That is also why the skill's session support matters. Real product flows often depend on prior state. Named sessions let the workflow isolate a checkout flow, an admin flow, or a marketing-site flow without mixing state across tasks.
+
+## The commands are simple because the defaults are doing the real work
+
+The command surface is intentionally plain. That is a strength.
+
+```bash
+export CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
+export PWCLI="$CODEX_HOME/skills/playwright/scripts/playwright_cli.sh"
+
+"$PWCLI" open https://example.com --headed
+"$PWCLI" snapshot
+"$PWCLI" click e3
+"$PWCLI" network
+"$PWCLI" tracing-start
+```
+
+Those commands are not impressive by themselves. The value is that the skill already decided how the workflow should start, when to trust refs, when to collect artifacts, and when not to jump to heavier tools.
+
+That is what makes it a skill instead of a command list.
+
+## Why skills beat bigger prompts
+
+This is the broader reason I like the curated Codex skills model. A good skill moves stable workflow knowledge out of the prompt and into a reusable operating layer. The Playwright skill is a clean example because its value is mostly procedural:
+
+- check the prerequisite
+- use the wrapper
+- snapshot first
+- resnapshot when refs are stale
+- prefer CLI actions over jumping to code
+- capture traces, screenshots, console, and network evidence when debugging
+
+That is exactly the kind of knowledge that gets wasted when it stays inside a giant one-off prompt. As a skill, it becomes durable. The agent can reload it, follow it, and apply it across projects.
+
+## Where this skill should and should not be used
+
+It should be used when the browser is the source of truth: UI-flow debugging, interaction inspection, screenshots, stateful navigation, or learning an unfamiliar surface from the terminal.
+
+It should not be the default for every frontend task. If the change is purely static or the issue is already obvious in code, opening a browser session can be unnecessary overhead. The skill itself gets this mostly right by staying CLI-first and explicit instead of pretending every interaction needs a large automated harness.
+
+That is the real takeaway. The most useful part of Playwright here is not the brand name or the library surface. It is the curated skill packaging. The skill turns browser work into a repeatable loop Codex can actually execute, which is exactly what good AI tooling should do.

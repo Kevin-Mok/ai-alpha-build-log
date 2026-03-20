@@ -52,6 +52,21 @@ The strongest posts in this backlog all answer the same question: "What gives bu
   4. How to trim context without losing quality
   5. Before/after examples from coding workflows
 
+### 12. The Curated Codex Playwright Skill Turns Browser Work Into a Repeatable Loop
+
+- Angle: Focus on the curated Codex Playwright skill itself rather than the underlying library, and show how the skill packages browser automation into a repeatable agent workflow.
+- Thesis: The leverage is not "use Playwright"; it is encoding prerequisite checks, wrapper usage, snapshots, sessions, and artifact capture into a reusable skill that Codex can execute reliably.
+- Audience: AI coding-tool users, frontend engineers, and developers trying to make browser debugging more operational.
+- Why it matters: This article sharpens the blog's core argument that skills are the real leverage layer in AI-assisted development.
+- Status: Published on `2026-03-20` at `/blog/playwright-browser-loop-ai-web-development`.
+- Outline:
+  1. Why the skill matters more than the generic "use Playwright" advice
+  2. What the wrapper, snapshot loop, and guardrails actually encode
+  3. Why CLI-first browser control fits debugging and learning better than jumping to test files
+  4. How sessions, traces, console, and network inspection make the skill useful in practice
+  5. Why reusable skills beat larger prompts for browser work
+- Note: Source file is `content/posts/playwright-browser-loop-ai-web-development.mdx`.
+
 ### 3. Good Taste Is a Competitive Advantage in AI Coding
 
 - Angle: Most AI-generated products fail because they are technically functional but visually generic and poorly judged.
@@ -178,6 +193,7 @@ The strongest posts in this backlog all answer the same question: "What gives bu
 - Search/utility posts: 6, 11
 - Timely analysis posts: 4, 7, 8, 9
 - Lifestyle/operator post: 10
+- Workflow/debugging post: 12
 
 The fastest way to build momentum is to publish one positioning post, one utility post, and one timely analysis post in the first batch.
 
