@@ -1,0 +1,67 @@
+---
+title: "Building an Editorial System That Treats AI As an Operator, Not a Mascot"
+slug: "ai-assisted-editorial-systems"
+excerpt: "A practical pattern for keeping long-form technical writing grounded in version control, real implementation details, and reviewer-friendly structure."
+publishedAt: "2026-02-14"
+updatedAt: "2026-02-18"
+tags:
+  - AI Workflows
+  - Technical Writing
+  - Product Systems
+featured: true
+draft: false
+seoTitle: "Editorial Systems for AI-Native Technical Writing"
+seoDescription: "How to build an AI-assisted writing workflow that remains reviewable, versioned, and tied to real delivery work."
+coverImage: "/images/covers/editorial-system.svg"
+---
+
+The easiest way to make an AI blog feel fake is to separate the writing workflow from the implementation workflow. Once content lives in a disconnected CMS, it starts drifting toward polished abstractions instead of concrete engineering detail.
+
+## Start with version-controlled source
+
+If the writing matters, the source should live beside the code. In practice that means MDX in the repo, typed frontmatter, and a render path that can be tested the same way the rest of the product is tested.
+
+That structure buys three useful things:
+
+1. Articles can be reviewed as code.
+2. Metadata changes ship with content changes.
+3. Draft and published states stay explicit.
+
+## Give AI a narrow job
+
+The useful AI role is not "write the post." The useful role is operational:
+
+- turn notes into candidate outlines
+- surface missing examples
+- tighten copy once the argument is already correct
+- help generate variants for metadata and summaries
+
+That keeps authorship human while still reducing repetitive work.
+
+## Keep the final surface calm
+
+A technical essay does not need the same visual noise as a product landing page. The article page should reduce itself to reading essentials: title, metadata, clean typography, internal anchors, and a clear path to related work.
+
+```ts
+type EditorialWorkflow = {
+  source: "mdx";
+  review: "git";
+  publication: "nextjs";
+  capture: "postgres";
+};
+```
+
+## Design for auditability
+
+The real difference between an AI-native writing stack and a gimmick is whether another engineer can inspect it quickly. A reviewer should be able to answer four questions:
+
+1. Where does content live?
+2. How is it validated?
+3. What gets hidden before publish?
+4. How does the site prove it handled the draft state correctly?
+
+## What this changes for clients
+
+Clients do not need another AI wrapper. They need a content system that moves fast without collapsing editorial quality. That usually means fewer control panels and more explicit, testable pipeline decisions.
+
+The strongest version of this pattern is modest: keep the writing in the repo, use AI for narrow operational leverage, and let the product show the discipline.

@@ -1,0 +1,16 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#F4F4EF"/>
+  <rect x="112" y="112" width="1376" height="676" rx="28" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="2"/>
+  <rect x="180" y="176" width="514" height="76" rx="18" fill="#0F172A"/>
+  <text x="222" y="224" fill="#F4F4EF" font-family="IBM Plex Mono, monospace" font-size="30">submitContactInquiry()</text>
+  <rect x="180" y="308" width="1240" height="360" rx="24" fill="#F8FBFD" stroke="#D9DEE5" stroke-width="2"/>
+  <path d="M260 396H536" stroke="#0F7F9D" stroke-width="10" stroke-linecap="round"/>
+  <path d="M260 448H964" stroke="#0F172A" stroke-opacity="0.2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M260 496H1032" stroke="#0F172A" stroke-opacity="0.2" stroke-width="8" stroke-linecap="round"/>
+  <path d="M260 544H908" stroke="#0F172A" stroke-opacity="0.2" stroke-width="8" stroke-linecap="round"/>
+  <rect x="1108" y="374" width="224" height="96" rx="18" fill="#FFFFFF" stroke="#0F7F9D" stroke-width="2"/>
+  <rect x="1108" y="504" width="224" height="96" rx="18" fill="#FFFFFF" stroke="#D9DEE5" stroke-width="2"/>
+  <circle cx="1332" cy="214" r="54" fill="#0F7F9D" fill-opacity="0.12"/>
+  <path d="M1296 214H1368" stroke="#0F7F9D" stroke-width="8" stroke-linecap="round"/>
+  <path d="M1332 178V250" stroke="#0F7F9D" stroke-width="8" stroke-linecap="round"/>
+</svg>

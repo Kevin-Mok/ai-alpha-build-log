@@ -1,0 +1,56 @@
+---
+title: "Server Actions Are a Better Fit Than API Boilerplate for Small Client Workflows"
+slug: "server-actions-for-client-workflows"
+excerpt: "For newsletter capture, contact intake, and other narrow write paths, Server Actions reduce the surface area without sacrificing validation or persistence."
+publishedAt: "2026-01-30"
+tags:
+  - Next.js
+  - Product Systems
+  - Client Delivery
+featured: true
+draft: false
+seoTitle: "Using Server Actions for Client Workflows"
+seoDescription: "Why Server Actions make sense for contact and subscriber flows in a blog-first product."
+coverImage: "/images/covers/server-actions.svg"
+---
+
+For a small product, route handlers are easy to overuse. If the only job is validating a form and writing a record, Server Actions usually give a cleaner path.
+
+## Why the abstraction is smaller
+
+With Server Actions, the write path can sit next to the component tree that uses it. That cuts down the number of files involved in a simple workflow:
+
+- input component
+- validation schema
+- server action
+- persistence layer
+
+There is no need to add a separate transport boundary unless the same write path genuinely needs to serve multiple clients.
+
+## Validation still belongs on the server
+
+Client-side checks improve feedback, but the real acceptance rules still belong on the server. The action should reject malformed input, normalize values like email addresses, and return field-level errors that the UI can display inline.
+
+## Duplicate handling needs intent
+
+Subscriber capture is where weak implementations usually show up. A duplicate email address should not produce a generic failure state. It should answer the actual user question:
+
+- already subscribed
+- restored from an inactive state
+- successfully added
+
+## The admin view matters
+
+Capturing a record is not enough. The system has to expose that record in a protected interface that somebody can actually use. A good v1 admin surface is small:
+
+### Show what changed
+
+The newest records should be visible immediately after submission.
+
+### Show enough context
+
+A subscriber source field or inquiry budget field often matters more than raw totals.
+
+### Keep the route protected on the server
+
+Session presence alone is not authorization. The system should map the authenticated email to an explicit role before rendering admin data.
