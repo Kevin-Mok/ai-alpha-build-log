@@ -150,6 +150,7 @@ If you run this under `systemd`, point `ExecStart` at:
 - Authorization is enforced server-side by looking up the authenticated email in the `Profile` table and requiring the `ADMIN` role.
 - The seed step upserts the Prisma `Profile` record for `ADMIN_EMAIL`.
 - If you want the magic-link request to target an existing auth user only, create the matching Supabase Auth user ahead of time and change the login action to disable auto-creation.
+- Detailed setup steps for this repo live in [`docs/supabase-setup.md`](docs/supabase-setup.md).
 
 ## Demo mode
 
