@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "start": "next start",
     "lint": "eslint . --max-warnings=0",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",
@@ -14,6 +15,9 @@
     "prisma:seed": "tsx prisma/seed.ts",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
+    "server:prepare": "bash scripts/ai-blog-server.sh prepare",
+    "server:start": "bash scripts/ai-blog-server.sh start",
+    "server:run": "bash scripts/ai-blog-server.sh run",
     "postinstall": "prisma generate"
   },
   "dependencies": {

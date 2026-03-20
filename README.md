@@ -74,6 +74,76 @@ pnpm prisma:seed
 pnpm dev
 ```
 
+## Production on `ai.kevin-mok.com`
+
+This server already has Nginx-backed upstreams on ports `3000` through `3003`, so this app should run on `127.0.0.1:3004`. The included server script defaults to that port and fails fast if the selected port is already in use.
+
+1. Copy the environment file and point the site URL at the production hostname:
+
+```bash
+cp .env.example .env.local
+```
+
+Required production values:
+
+- `NEXT_PUBLIC_SITE_URL=https://ai.kevin-mok.com`
+- `DATABASE_URL=...`
+- `NEXT_PUBLIC_SUPABASE_URL=...`
+- `NEXT_PUBLIC_SUPABASE_ANON_KEY=...`
+- `SUPABASE_SERVICE_ROLE_KEY=...`
+- `ADMIN_EMAIL=...`
+- `ADMIN_FULL_NAME=...`
+- `AI_BLOG_DEMO_MODE=0`
+- `E2E_BYPASS_AUTH=0`
+
+2. Prepare the production build:
+
+```bash
+pnpm server:prepare
+```
+
+3. Start the app behind Nginx:
+
+```bash
+pnpm server:start
+```
+
+If you want one command for an initial bring-up, use:
+
+```bash
+pnpm server:run
+```
+
+The underlying script lives at `scripts/ai-blog-server.sh` and supports `ENV_FILE`, `HOST`, and `PORT` overrides. The default startup target is `127.0.0.1:3004`.
+
+Example Nginx upstream for `ai.kevin-mok.com`:
+
+```nginx
+server {
+  listen 443 ssl http2;
+  listen [::]:443 ssl http2;
+  server_name ai.kevin-mok.com;
+
+  location / {
+    proxy_pass http://127.0.0.1:3004;
+    proxy_http_version 1.1;
+    proxy_set_header Host $host;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto $scheme;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection "upgrade";
+    proxy_read_timeout 60s;
+  }
+}
+```
+
+If you run this under `systemd`, point `ExecStart` at:
+
+```bash
+/usr/bin/env bash /home/kevin/ai-blog/scripts/ai-blog-server.sh start
+```
+
 ## Auth notes
 
 - Admin access uses Supabase magic-link sign-in.
@@ -96,10 +166,14 @@ Do not use demo mode in production.
 ```bash
 pnpm dev
 pnpm build
+pnpm start
 pnpm lint
 pnpm typecheck
 pnpm test
 pnpm test:e2e
+pnpm server:prepare
+pnpm server:start
+pnpm server:run
 ```
 
 ## Content workflow
