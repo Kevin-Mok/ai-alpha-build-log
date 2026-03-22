@@ -187,13 +187,64 @@ The strongest posts in this backlog all answer the same question: "What gives bu
   4. How to preserve voice across formats
   5. A reusable workflow template
 
+### 13. `Superpowers` Shows What Happens When AI Coding Becomes Workflow Product
+
+- Angle: Use `obra/superpowers` as a concrete example of the shift from better prompts toward packaged development methodology for coding agents.
+- Thesis: The real leverage in AI coding is increasingly encoded in enforced workflow, with skills, plans, worktrees, subagents, TDD, and review acting as installable operating discipline.
+- Audience: AI coding-tool users, engineering leads testing agents, and indie hackers trying to standardize agent output.
+- Why it matters: This extends the blog's skills thesis with a high-signal repo that turns process into product.
+- Example to include: the brainstorming skill can tell the agent to offer a browser-based visual companion with mockups, diagrams, and comparisons when that would explain a design problem better than plain terminal text.
+- Example to include: [`docs/superpowers/specs/2026-03-21-fix-handwriting-u-design.md`](docs/superpowers/specs/2026-03-21-fix-handwriting-u-design.md) as a concrete superpowers plan/spec that shows how a narrow design fix gets scoped with goals, non-goals, verification, and acceptance criteria.
+- Outline:
+  1. What `superpowers` actually installs and automates
+  2. Why opinionated workflow beats ad hoc prompting
+  3. Concrete examples of skills encoding behavior, such as the brainstorming skill's browser-offer flow for visual collaboration
+  4. The significance of planning, worktrees, subagents, TDD, and review in one system
+  5. Where this creates leverage for solo builders and small teams
+  6. Where heavy methodology could add drag or ceremony
+- Note: Source repo is `https://github.com/obra/superpowers`.
+
+### 14. `commit-session` Solves One of AI Coding's Messiest Git Problems
+
+- Angle: Most AI coding demos stop at code generation, but the real trust boundary is shipping only the work the current agent session actually owns.
+- Thesis: Session-scoped commit workflows matter because they turn “don’t accidentally commit someone else’s dirty files” from a vague caution into enforceable operational behavior.
+- Audience: AI coding-tool users, developers working in dirty repos, and teams trying to let agents operate safely in shared codebases.
+- Why it matters: This is a concrete, high-pain workflow problem that makes the broader “skills over prompts” argument tangible.
+- Example to include: capturing a pre-write `git status --short` baseline so later commit logic can separate pre-existing dirty work from files dirtied during the current session.
+- Example to include: the `observed_touch` fallback, where directly attributed files can still ship safely even if the session missed its original baseline capture.
+- Outline:
+  1. Why AI-assisted commits become dangerous in already-dirty worktrees
+  2. Why `git add .` destroys trust once humans and agents share a repo
+  3. How baseline capture and session scoping create a safer commit boundary
+  4. Why explicit workflow policy beats relying on memory or manual diff review
+  5. How `commit-session` fits into a larger stack of plans, review, and agent guardrails
+  6. The real limits: mixed files, generated artifacts, missing baselines, and ambiguous ownership
+- Note: Source skill is `/home/kevin/linux-config/dot_agents/skills/commit-session/SKILL.md`, with supporting plan/history in `/home/kevin/linux-config/plans/commit-session*.md`.
+
+### 15. Codex's Experimental Automatic Approval Review Makes Agent Risk Legible
+
+- Angle: The interesting feature is not just that an agent can ask to do something risky, but that it can generate a structured approval rationale explaining why the action should or should not be allowed.
+- Thesis: Coding agents become more trustworthy when dangerous operations are filtered through explicit risk analysis that accounts for destination, reversibility, user intent, and collaborator impact.
+- Audience: AI coding-tool users, devtool builders, engineering leads evaluating agent safety, and anyone thinking about permission systems for autonomous tooling.
+- Why it matters: This turns an abstract “AI safety” topic into a practical product pattern for day-to-day developer workflows.
+- Example to include: an automatic approval review marking a `--force-with-lease` push to `main` as medium risk because it matches the user's requested GitHub workflow but still rewrites published history and can disrupt collaborators.
+- Example to include: the review explicitly lowering exfiltration concern because the destination remote and repo contents align with the user-initiated workflow, while still calling out that force-pushing a primary branch is materially harder to reverse than a normal push.
+- Outline:
+  1. Why binary permission prompts are too blunt for serious agent workflows
+  2. What automatic approval review is actually evaluating
+  3. Why git pushes and force-pushes are a useful stress test for agent permissions
+  4. How contextual risk scoring beats generic “are you sure?” gating
+  5. What this means for higher-trust autonomous coding loops
+  6. The failure modes: false confidence, bad policy defaults, and unclear accountability
+- Note: Source example is the experimental Codex automatic approval review text about approving a `--force-with-lease` push to `main` with medium risk.
+
 ## Packaging Notes
 
 - Core positioning posts: 1, 2, 3, 5
 - Search/utility posts: 6, 11
 - Timely analysis posts: 4, 7, 8, 9
 - Lifestyle/operator post: 10
-- Workflow/debugging post: 12
+- Workflow/debugging posts: 12, 13, 14, 15
 
 The fastest way to build momentum is to publish one positioning post, one utility post, and one timely analysis post in the first batch.
 
